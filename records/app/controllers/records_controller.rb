@@ -9,9 +9,20 @@ class RecordsController < ApplicationController
     	render :show #optional
   	end
 
- 	def new
+ 	def new   #receives form data but need the create route to render it
  		@record = Record.new
     	render :new #optional
+  	end
+	
+	def create
+	    Record.create(record_params)
+	    redirect_to('/records')
+	end
+
+
+  	private
+		def record_params
+    	params.require(:record).permit(:title, :artist, :year, :cover_art, :song_count)
   	end
 
 end
